@@ -29,10 +29,10 @@ def initialize_game():
 
 def display_game_board():
     os.system('clear')
-    column_header = ""
-    for i in range(game_size):
-        column_header += str(i) + "   "
-    print("   " + column_header)
+    column_header = "   " + "   ".join([str(i) for i in range(game_size)])
+    # for i in range(game_size):
+    #     column_header += str(i) + "   "
+    print(column_header)
     for count, row in enumerate(game):
         print(count, end="  ")
         for count, val in enumerate(row):
