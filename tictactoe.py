@@ -2,24 +2,42 @@ import os
 from time import sleep
 import itertools
 
-game = [["", "", "",],
-        ["", "", "",],
-        ["", "", "",],]
+game_size = 3
+game = []
 player = itertools.cycle(["X", "O"])
 current_player = player
 
+def initialize_game():
+    global game_size
+    print("Welcome to Tic Tac Toe!")
+    try:
+        game_size = int(input("What game board size would you like? (ie. 3x3, 4x4)"))
+    except ValueError:
+        print("Invalid input. Try again.")
+        initialize_game()
+
+    for _ in range(game_size):
+        row = []
+        for _ in range(game_size):
+            row.append("")
+        game.append(row)
+
+    print(game)
 
 def display_game_board():
     os.system('clear')
-    print("   0   1   2")
+    column_header = ""
+    for i in range(game_size):
+        column_header += str(i) + "   "
+    print("   " + column_header)
     for count, row in enumerate(game):
         print(count, end="  ")
         for count, val in enumerate(row):
-            if val == "" and count > 1:
+            if val == "" and count == game_size - 1:
                 print()
             elif val == "":
                 print(" ", end=" | ")
-            elif count < 2:
+            elif count != game_size - 1:
                 print(val, end=" | ")
             else:
                 print(val)
@@ -84,6 +102,7 @@ def check_diagonal(game_board):
     return check_equality(ltr) or check_equality(rtl)
 
 def run_game():
+    initialize_game()
     game_won = False
     while not game_won:
         change_current_player()
