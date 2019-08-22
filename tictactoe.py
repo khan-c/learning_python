@@ -25,9 +25,15 @@ def display_game_board():
                 print(val)
 
 def make_move(current_player):
-    row, col = prompt_move()
+    raw_row, raw_col = prompt_move()
     try:
-        game[int(row)][int(col)] = current_player
+        row = int(raw_row)
+        col = int(raw_col)
+        if not spot_taken(row, col):
+            game[row][col] = current_player
+        else:
+            print("That spot is taken. Try again.")
+            make_move(current_player)
     except ValueError:
         print("That input was not valid. Try again.")
         make_move(current_player)
@@ -35,14 +41,17 @@ def make_move(current_player):
         print("Needs to be a valid row/col!")
         make_move(current_player)
 
+def spot_taken(row, col):
+    return game[row][col] is not ""
+
 def prompt_move():
-    global current_player
     print(current_player + ", make your move!")
     row = input("Row: ")
     col = input("Col: ")
     return row, col
 
 def change_current_player():
+    # confused a bit about this global thing... maybe too used to javascript variable declarations
     global current_player
     current_player = next(player)
 
