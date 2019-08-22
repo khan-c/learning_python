@@ -1,11 +1,12 @@
 import os
 from time import sleep
+import itertools
 
 game = [["", "", "",],
         ["", "", "",],
         ["", "", "",],]
-players = "O", "X"
-current_player = "O"
+player = itertools.cycle(["X", "O"])
+current_player = player
 
 
 def display_game_board():
@@ -42,12 +43,8 @@ def prompt_move():
     return row, col
 
 def change_current_player():
-    # how do you deal with scope in python?
     global current_player
-    if current_player == "X":
-        current_player = "O"
-    else:
-        current_player = "X"
+    current_player = next(player)
 
 def check_win():
     return check_horizontal(game) or check_vertical(game) or check_diagonal(game)
