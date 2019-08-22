@@ -9,6 +9,8 @@ current_player = player
 
 def initialize_game():
     global game_size
+    global game
+
     print("Welcome to Tic Tac Toe!")
     try:
         game_size = int(input("What game board size would you like? (ie. 3x3, 4x4)"))
@@ -16,13 +18,14 @@ def initialize_game():
         print("Invalid input. Try again.")
         initialize_game()
 
-    for _ in range(game_size):
-        row = []
-        for _ in range(game_size):
-            row.append("")
-        game.append(row)
-
-    print(game)
+    # is this the python way? make things one-line? kind of like ruby?
+    game = [["" for i in range(game_size)] for i in range(game_size)]
+    # for _ in range(game_size):
+    #     row = []
+    #     for _ in range(game_size):
+    #         row.append("")
+    #     game.append(row)
+    # print(game)
 
 def display_game_board():
     os.system('clear')
