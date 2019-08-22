@@ -73,6 +73,11 @@ def change_current_player():
     global current_player
     current_player = next(player)
 
+'''
+design decision would be if in a game of greater than size 3
+would we want it to be a full row/column/diag in order to win,
+or just 3 in a row anywhere?
+'''
 def check_win():
     return check_horizontal(game) or check_vertical(game) or check_diagonal(game)
 
